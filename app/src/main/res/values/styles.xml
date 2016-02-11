@@ -19,6 +19,10 @@
         <item name="cardUseCompatPadding">true</item>
     </style>
 
+    <style name="ButtonDefault">
+        <item name="android:textColor">@color/buttonTextColor</item>
+    </style>
+
     <style name="CardViewDefault.Clickable" parent="CardViewDefault">
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
