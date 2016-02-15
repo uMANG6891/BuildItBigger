@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.Pair;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.main_b_show_joke)
-    void getNewJoke() {
-        final AsyncTask<Pair<Context, EndpointsAsyncTask.GotJokeCallback>, Void, String> processGetJoke = new EndpointsAsyncTask();
+    void showNewJoke() {
+        final AsyncTask<EndpointsAsyncTask.GotJokeCallback, Void, String> processGetJoke = new EndpointsAsyncTask();
 
         ProgressBar pb = new ProgressBar(this);
         pb.setIndeterminate(true);
@@ -52,11 +53,12 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
         dialog.show();
 
-        processGetJoke.execute(new Pair<Context, EndpointsAsyncTask.GotJokeCallback>(this, new EndpointsAsyncTask.GotJokeCallback() {
+        processGetJoke.execute(new EndpointsAsyncTask.GotJokeCallback() {
             @Override
-            public void done(String result, boolean errorOccurred) {
+            public void done(String result, boolean error) {
                 dialog.dismiss();
-                if (errorOccurred) {
+                if (error) {
+                    Log.e("error text", result);
                     Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
                 } else {
                     Intent i = new Intent(MainActivity.this, JokeActivity.class);
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             }
-        }));
+        });
     }
 
 }

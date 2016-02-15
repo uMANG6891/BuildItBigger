@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/ngA75uqV5MWvnm8pPz4ec1tWv2Q\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/k7zp6AN-cP2280I6nuC6lAfTlpI\"",
  "discoveryVersion": "v1",
  "id": "myApi:v1",
  "name": "myApi",
@@ -13,8 +13,8 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rpc",
- "rootUrl": "https://myApplicationId.appspot.com/_ah/api/",
- "rpcUrl": "https://myApplicationId.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://udacitybuilditbigger-1222.appspot.com/_ah/api/",
+ "rpcUrl": "https://udacitybuilditbigger-1222.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {
