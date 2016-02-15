@@ -4,13 +4,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.umang.builditbigger.ui.activity.MainActivity;
 import com.umang.jokes.backend.myApi.MyApi;
 
 import java.io.IOException;
@@ -22,6 +20,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, EndpointsAsyncTa
     private MyApi myApiService = null;
     private Context context;
     private GotJokeCallback callback;
+    private boolean errorOccurred=false;
 
     @Override
     protected String doInBackground(Pair<Context, GotJokeCallback>... params) {
@@ -49,18 +48,19 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, EndpointsAsyncTa
         try {
             return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
+            errorOccurred = true;
             return e.getMessage();
         }
     }
 
     @Override
     protected void onPostExecute(String result) {
-        if(callback!=null){
-            callback.done();
+        if (callback != null) {
+            callback.done(result, errorOccurred);
         }
     }
 
     public interface GotJokeCallback {
-        void done();
+        void done(String result, boolean error);
     }
 }

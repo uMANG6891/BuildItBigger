@@ -9,8 +9,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.jokes.Joker;
 import com.umang.builditbigger.R;
 import com.umang.builditbigger.data.EndpointsAsyncTask;
 import com.umang.jokedisplay.ui.activity.JokeActivity;
@@ -34,8 +35,12 @@ public class MainActivity extends AppCompatActivity {
     void getNewJoke() {
         final AsyncTask<Pair<Context, EndpointsAsyncTask.GotJokeCallback>, Void, String> processGetJoke = new EndpointsAsyncTask();
 
+        ProgressBar pb = new ProgressBar(this);
+        pb.setIndeterminate(true);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Loading joke please wait...")
+        builder.setMessage("Loading joke. Please wait...")
+                .setView(pb)
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -49,11 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
         processGetJoke.execute(new Pair<Context, EndpointsAsyncTask.GotJokeCallback>(this, new EndpointsAsyncTask.GotJokeCallback() {
             @Override
-            public void done() {
+            public void done(String result, boolean errorOccurred) {
                 dialog.dismiss();
-                Intent i = new Intent(MainActivity.this, JokeActivity.class);
-                i.putExtra(JokeActivity.EXTRA_JOKE, Joker.getNewJoke());
-                startActivity(i);
+                if (errorOccurred) {
+                    Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(MainActivity.this, JokeActivity.class);
+                    i.putExtra(JokeActivity.EXTRA_JOKE, result);
+                    startActivity(i);
+                }
             }
         }));
     }
