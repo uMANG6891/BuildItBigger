@@ -17,6 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        free {
+            applicationId 'com.umang.builditbigger.free'
+        }
+        paid {
+            applicationId 'com.umang.builditbigger.paid'
+        }
+    }
 }
 
 dependencies {
@@ -31,4 +39,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
+
+    freeCompile 'com.google.android.gms:play-services-ads:8.4.0'
 }
