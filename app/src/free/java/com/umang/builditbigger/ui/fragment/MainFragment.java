@@ -54,7 +54,9 @@ public class MainFragment extends Fragment {
 
         ((MainActivity) con).setSupportActionBar(toolbar);
 
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("BD7F62762912759F1A7CD01CFA35CC68")
+                .build();
         mAdView.loadAd(adRequest);
 
         mInterstitialAd = new InterstitialAd(con);
@@ -66,7 +68,7 @@ public class MainFragment extends Fragment {
 
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .addTestDevice("BD7F62762912759F1A7CD01CFA35CC68")
                 .build();
 
         mInterstitialAd.loadAd(adRequest);
