@@ -105,7 +105,6 @@ public class MainFragment extends Fragment {
                     Toast.makeText(con, result, Toast.LENGTH_SHORT).show();
                 } else {
                     mInterstitialAd.setAdListener(new AdListener() {
-
                         @Override
                         public void onAdFailedToLoad(int errorCode) {
                             super.onAdFailedToLoad(errorCode);
